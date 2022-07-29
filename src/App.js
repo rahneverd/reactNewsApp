@@ -1,9 +1,12 @@
-import React from 'react';
+import './App.css'
+import React, { Component } from 'react'
 
-export function App() {
+export default class App extends Component {
+  render() {
     return (
-        <div>
-            Welcome!
-        </div>
+      <div>
+        Hello my first class based component
+      </div>
     )
+  }
 }
