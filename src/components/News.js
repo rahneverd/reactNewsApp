@@ -10,7 +10,7 @@ export class News extends Component {
       articles: this.articles,
       loading: false,
       page: 1,
-      lastPage: false
+      pageSize: 0
     }
   }
   async componentDidMount() {
@@ -19,9 +19,9 @@ export class News extends Component {
     let parsedData = await data.json()
     if(parsedData.articles.length % 3) {
       let remainder = parsedData.articles.length % 3
-      this.setState({articles : parsedData.articles.slice(0, -remainder), lastPage: true})
+      this.setState({articles : parsedData.articles.slice(0, -remainder), pageSize: Math.floor(parsedData.totalResults / 18)})
     } else {
-      this.setState({articles : parsedData.articles})
+      this.setState({articles : parsedData.articles, pageSize: Math.floor(parsedData.totalResults / 18)})
     }
     
   }
@@ -30,13 +30,11 @@ export class News extends Component {
     let url = `https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=bb01b55267ad42e58d165fb938d9d2a8&pageSize=18&page=${this.state.page-1}`
     let data = await fetch(url)
     let parsedData = await data.json()
-    if(!parsedData.articles.length) {
-      this.setState({lastPage: true})
-    }else if(parsedData.articles.length % 3) {
+    if(parsedData.articles.length % 3) {
       let remainder = parsedData.articles.length % 3
-      this.setState({articles : parsedData.articles.slice(0, -remainder), page: this.state.page - 1, lastPage: true})
+      this.setState({articles : parsedData.articles.slice(0, -remainder), page: this.state.page - 1})
     } else {
-      this.setState({articles : parsedData.articles, page: this.state.page - 1, lastPage: false})
+      this.setState({articles : parsedData.articles, page: this.state.page - 1})
     }
   }
   handleNextClick = async() => {
@@ -46,9 +44,9 @@ export class News extends Component {
     let parsedData = await data.json()
     if(parsedData.articles.length % 3) {
       let remainder = parsedData.articles.length % 3
-      this.setState({articles : parsedData.articles.slice(0, -remainder), page: this.state.page + 1, lastPage: true})
+      this.setState({articles : parsedData.articles.slice(0, -remainder), page: this.state.page + 1})
     } else {
-      this.setState({articles : parsedData.articles, page: this.state.page + 1, lastPage: false})
+      this.setState({articles : parsedData.articles, page: this.state.page + 1})
     }
   }
 
@@ -70,7 +68,7 @@ export class News extends Component {
         </div>
         <div className='container d-flex justify-content-between'>
           <button disabled={this.state.page<=1} type="button" className="btn btn-primary" onClick={this.handlePrevClick}>&larr; Previous</button>
-          <button disabled={this.state.lastPage} type="button" className="btn btn-primary" onClick={this.handleNextClick}>Next &rarr;</button>
+          <button disabled={this.state.page == this.state.pageSize} type="button" className="btn btn-primary" onClick={this.handleNextClick}>Next &rarr;</button>
         </div>
       </div>
     )
