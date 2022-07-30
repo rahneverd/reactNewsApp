@@ -20,7 +20,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
                    }
                },
                {
-                   test: /\.scss$/,
+                   test: /\.(.css|scss)$/,
                    use: [
                        MiniCssExtractPlugin.loader,
                        'css-loader',
