@@ -26,7 +26,13 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
                        'css-loader',
                        'sass-loader'
                    ]
-               }
+               },
+               {
+                test: /\.(png|svg|jpg|jpeg|gif|tiff)$/,
+                use: [
+                    'file-loader?name=assets/[name].[ext]'
+                ]
+                }
            ]
        },
        plugins: [new MiniCssExtractPlugin()]
