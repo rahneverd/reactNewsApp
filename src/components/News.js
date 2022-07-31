@@ -37,7 +37,7 @@ export class News extends Component {
   }
   handlePrevClick = async() => {
     this.setState({loading: true})
-    let url = `https://newsapi.org/v2/top-headlines?country=us&category=${this.props.category}&apiKey=bb01b55267ad42e58d165fb938d9d2a8&pageSize=18&page=${this.state.page-1}`
+    let url = `https://newsapi.org/v2/top-headlines?language=en${!this.props.category?'&': '&category='+this.props.category+'&'}&apiKey=bb01b55267ad42e58d165fb938d9d2a8&pageSize=18&page=${this.state.page-1}`
     let data = await fetch(url)
     let parsedData = await data.json()
     if(parsedData.articles.length % 3) {
@@ -49,7 +49,7 @@ export class News extends Component {
   }
   handleNextClick = async() => {
     this.setState({loading: true})
-    let url = `https://newsapi.org/v2/top-headlines?country=us&category=${this.props.category}&apiKey=bb01b55267ad42e58d165fb938d9d2a8&pageSize=18&page=${this.state.page+1}`
+    let url = `https://newsapi.org/v2/top-headlines?language=en${!this.props.category?'&': '&category='+this.props.category+'&'}&apiKey=bb01b55267ad42e58d165fb938d9d2a8&pageSize=18&page=${this.state.page+1}`
     let data = await fetch(url)
     let parsedData = await data.json()
     if(parsedData.articles.length % 3) {
