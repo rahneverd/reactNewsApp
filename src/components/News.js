@@ -68,7 +68,7 @@ export class News extends Component {
             if(!element.urlToImage) {element.urlToImage="https://images.pexels.com/photos/518543/pexels-photo-518543.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"}
             return (
               <div className='col-md-4' key={element.url}>
-                <NewsItem title={element.title?element.title.slice(0, 45): ""} description={element.description?element.description.slice(0, 88): ""} urlImage={element.urlToImage} urlNews={element.url} />
+                <NewsItem title={element.title?element.title.slice(0,40): ""} description={element.description?element.description.slice(0, 88): ""} urlImage={element.urlToImage} urlNews={element.url} createdBy={element.author} createdAt={element.publishedAt.slice(0, 10)} source={element.source.name} />
               </div>
             )
           }
