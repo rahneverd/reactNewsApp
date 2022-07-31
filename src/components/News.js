@@ -23,7 +23,7 @@ export class News extends Component {
     document.title = `${!this.props.category? 'ReactNewsApp': this.capitalizeFirstLetter(this.props.category)+' - ReactNewsApp'}`
   }
   async componentDidMount() {
-    let url = `https://newsapi.org/v2/top-headlines?country=us${!this.props.category?'&': '&category='+this.props.category+'&'}apiKey=bb01b55267ad42e58d165fb938d9d2a8&pageSize=18`
+    let url = `https://newsapi.org/v2/top-headlines?language=en${!this.props.category?'&': '&category='+this.props.category+'&'}apiKey=bb01b55267ad42e58d165fb938d9d2a8&pageSize=18`
     this.setState({ loading: true })
     let data = await fetch(url)
     let parsedData = await data.json()
