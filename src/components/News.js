@@ -5,22 +5,25 @@ import NewsItem from './NewsItem'
 
 export class News extends Component {
   static defaultProps = {
-    category: 'general'
   }
   static propTypes = {
     category: PropTypes.string
   }
-  constructor() {
-    super()
+  capitalizeFirstLetter = (string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+  constructor(props) {
+    super(props)
     this.state = {
       articles: this.articles,
       loading: true,
       page: 1,
       pageSize: 0
     }
+    document.title = `${!this.props.category? 'ReactNewsApp': this.capitalizeFirstLetter(this.props.category)+' - ReactNewsApp'}`
   }
   async componentDidMount() {
-    let url = `https://newsapi.org/v2/top-headlines?country=us&category=${this.props.category}&apiKey=bb01b55267ad42e58d165fb938d9d2a8&pageSize=18`
+    let url = `https://newsapi.org/v2/top-headlines?country=us${!this.props.category?'&': '&category='+this.props.category+'&'}apiKey=bb01b55267ad42e58d165fb938d9d2a8&pageSize=18`
     this.setState({ loading: true })
     let data = await fetch(url)
     let parsedData = await data.json()
@@ -61,7 +64,7 @@ export class News extends Component {
   render() {
     return (
       <div className='container my-3'>
-        <h2 className='text-center'> NewsMonkey - Top Headlines</h2>
+        <h2 className='text-center'> ReactNewsApp - Top Headlines</h2>
         {this.state.loading && <Spinner />}
         <div className='row'>
           {!this.state.loading && this.state.articles.map((element) => {
