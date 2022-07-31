@@ -61,17 +61,16 @@ export class News extends Component {
   //   }
   // }
   fetchMoreData = async () => {
-    this.setState({loading: true})
     let url = `https://newsapi.org/v2/top-headlines?language=en${!this.props.category?'&':'&category='+this.props.category+'&'}apiKey=bb01b55267ad42e58d165fb938d9d2a8&pageSize=18&page=${this.state.page+1}`
     let data = await fetch(url)
     let parsedData = await data.json()
     if(parsedData.articles.length % 3) {
       let remainder = parsedData.articles.length % 3
-      this.setState({articles : this.state.articles.concat(parsedData.articles.slice(0, -remainder)), page: this.state.page + 1, loading: false})
+      this.setState({articles : this.state.articles.concat(parsedData.articles.slice(0, -remainder)), page: this.state.page + 1})
     } else {
       console.log("In The Else")
       console.log(parsedData.articles)
-      this.setState({articles : this.state.articles.concat(parsedData.articles), page: this.state.page + 1, loading: false})
+      this.setState({articles : this.state.articles.concat(parsedData.articles), page: this.state.page + 1})
     }
 
   };
@@ -80,7 +79,7 @@ export class News extends Component {
     return (
       <div className='container my-3'>
         <h2 className='text-center'> ReactNewsApp - Top Headlines</h2>
-        {/* {this.state.loading && <Spinner />} */}
+        {this.state.loading && <Spinner />}
         {console.log(this.state.articles)}
         <InfiniteScroll
           dataLength={this.state.articles.length}
