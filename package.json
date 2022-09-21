@@ -20,9 +20,7 @@
 		"react-router-dom": "^6.3.0",
 		"stream": "^0.0.2",
 		"stream-browserify": "^3.0.0",
-		"xml-js": "^1.6.11"
-	},
-	"devDependencies": {
+		"xml-js": "^1.6.11",
 		"@babel/core": "^7.18.9",
 		"@babel/preset-env": "^7.18.9",
 		"@babel/preset-react": "^7.18.6",
