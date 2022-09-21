@@ -10,7 +10,7 @@ module.exports = {
 	devServer: {
 		port: process.env.PORT,
 		historyApiFallback: true,
-		disableHostCheck: true,
+		allowedHosts: 'all',
 	},
 	module: {
 		rules: [
