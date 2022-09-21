@@ -1,5 +1,6 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+require('dotenv').config();
 
 module.exports = {
 	output: {
@@ -9,6 +10,7 @@ module.exports = {
 	devServer: {
 		port: process.env.PORT,
 		historyApiFallback: true,
+		disableHostCheck: true,
 	},
 	module: {
 		rules: [
